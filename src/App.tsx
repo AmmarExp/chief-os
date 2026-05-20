@@ -1,6 +1,4 @@
-import { useEffect, useState } from 'react'
-import { useAuth } from '@/lib/auth-context'
-import { AuthPage } from '@/pages/AuthPage'
+import { useState, useEffect } from 'react'
 import { AppShell } from '@/components/layout/AppShell'
 import { DashboardPage } from '@/pages/DashboardPage'
 import { ChiefPage } from '@/pages/ChiefPage'
@@ -18,7 +16,6 @@ import { SettingsPage } from '@/pages/SettingsPage'
 export type PageId = 'dashboard'|'chief'|'tasks'|'notes'|'calendar'|'agents'|'outputs'|'memory'|'soul'|'skills'|'logs'|'settings'
 
 function App() {
-  const { user, loading } = useAuth()
   const [page, setPage] = useState<PageId>('dashboard')
 
   useEffect(() => {
@@ -27,17 +24,6 @@ function App() {
   }, [])
 
   useEffect(() => { window.location.hash = page }, [page])
-
-  if (loading) return (
-    <div className="min-h-screen flex items-center justify-center" style={{background:'var(--color-bg)'}}>
-      <div className="flex flex-col items-center gap-3">
-        <div className="text-3xl animate-pulse">👑</div>
-        <div className="text-sm" style={{color:'var(--color-text-muted)'}}>Loading Chief OS...</div>
-      </div>
-    </div>
-  )
-
-  if (!user) return <AuthPage />
 
   const pages: Record<PageId, React.ReactNode> = {
     dashboard: <DashboardPage onNavigate={setPage} />,
