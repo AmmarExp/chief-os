@@ -10,4 +10,4 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaHTMLAttributes<H
     ...style
   }} className={cn(className)} {...props} />
 ))
-textarea.displayName = 'Textarea'
+Textarea.displayName = 'Textarea'
